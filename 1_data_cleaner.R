@@ -1,5 +1,9 @@
-train <- read.csv("./raw_dataset/train.csv",stringsAsFactors = FALSE)
-test <- read.csv("./raw_dataset/test.csv",stringsAsFactors = FALSE)
+train <- read.csv("./raw_dataset/train.csv", stringsAsFactors = FALSE)
+test <- read.csv("./raw_dataset/test.csv", stringsAsFactors = FALSE)
+
+#-------------------------
+# The target is separated.
+#-------------------------
 
 target <- train[, 21]
 train <- train[, 1:20]
@@ -9,18 +13,21 @@ colnames(test) <- colnames(train)
 
 proper_feature_names <- function(input_table){
   
-  #--------------------------------------
-  #
-  #
-  #
-  #--------------------------------------
+  #--------------------------------------------
+  # INPUT -- Table with messed up column names.
+  # OUTPUT -- Table with proper column names.
+  #--------------------------------------------
   
   colnames(input_table) <- tolower(colnames(input_table))
+  
   colnames(input_table) <- gsub('([[:punct:]])|\\s+','_',colnames(input_table))
+  
   while (any(grepl("__",colnames(input_table),fixed = TRUE)) == TRUE){
     colnames(input_table) <- gsub("__","_",colnames(input_table),fixed = TRUE) 
   }
+  
   colnames(input_table) <- gsub("\\*$", "",colnames(input_table))
+  
   return(input_table)
 }
 
