@@ -62,8 +62,8 @@ test <- proper_feature_names(test)
 data_munger <- function(input_table){
   
   #------------------------------------
-  # INPUT 1.: The table to be cleaned.
-  # OUTPUT: The cleaned numeric tables.
+  # INPUT -- The table to be cleaned.
+  # OUTPUT -- The cleaned numeric tables.
   #------------------------------------
   
   #----------------------------------------------
@@ -163,9 +163,9 @@ data_munger <- function(input_table){
   
   new_table$intl_calls_per_a <- input_table$intl_calls/input_table$account_length_weeks
     
-  #-------------------------
-  # Call time to call number
-  #-------------------------
+  #--------------------------
+  # Call time to call number.
+  #--------------------------
   
   new_table$day_time_to_number <- input_table$day_mins/(input_table$day_calls + 1)
     
@@ -175,9 +175,9 @@ data_munger <- function(input_table){
     
   new_table$intl_time_to_number <- input_table$intl_mins/(input_table$intl_calls + 1) 
   
-  #-------------------------------
-  # Dealing with the state string
-  #-------------------------------
+  #--------------------------------
+  # Dealing with the state string.
+  #--------------------------------
   
   state <- c("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN",
              "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ",
@@ -186,31 +186,37 @@ data_munger <- function(input_table){
   
   new_table <- dummygen(new_table, input_table, "state", state, "state")
   
-  #-----------
-  # Area code
-  #-----------
+  #------------
+  # Area code.
+  #------------
   
   area_code <- c(408, 415, 510)
   
   new_table <- dummygen(new_table, input_table, "area_code", area_code, "area_code")
   
-  #--------------------
-  # Phone manipulation
-  #--------------------
+  #---------------------
+  # Phone manipulation.
+  #---------------------
   
-  input_table$phone <- substr(input_table$phone,1,3)
+  input_table$phone <- substr(input_table$phone, 1, 3)
   
   phone <- as.character(c(382:422))
   
   new_table <- dummygen(new_table, input_table, "phone", phone, "phone")
   
-  
   return(new_table)
 }
 
+#----------------------
+#
+#----------------------
 
 train <- data_munger(train)
 test <- data_munger(test)
+
+#------------------------
+#
+#--------------------------
 
 write.csv(target, "./clean_dataset/target.csv", row.names = FALSE)
 write.csv(train,"./clean_dataset/train.csv", row.names = FALSE)
