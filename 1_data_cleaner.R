@@ -1,16 +1,9 @@
-setwd("C:/Users/Benedek/Documents/gramener")
-
-
 train <- read.csv("./raw_dataset/train.csv",stringsAsFactors = FALSE)
 test <- read.csv("./raw_dataset/test.csv",stringsAsFactors = FALSE)
 
 target <- train[, 21]
-
-
 train <- train[, 1:20]
 test <- test[, 1:20]
-
-
 
 colnames(test) <- colnames(train)
 
@@ -71,7 +64,7 @@ data_munger <- function(input_table){
   #----------------------------------------------
   
   new_table <- data.frame(matrix(0, nrow(input_table), 1))
-  new_table[,1] <- 1:nrow(input_table)
+  new_table[, 1] <- 1:nrow(input_table)
   
   #-----------------------------------------------------
   # The first variable is an artifical ID.
@@ -79,27 +72,27 @@ data_munger <- function(input_table){
   
   colnames(new_table) <- c("id")
   
-  #----------------------------------------------------
-  # Account length in weeks
-  #----------------------------------------------------
+  #--------------------------
+  # Account length in weeks.
+  #--------------------------
   
   new_table$account_length <- input_table$account_length_weeks
   
-  #---------------
-  # Message number
-  #---------------
+  #----------------
+  # Message number.
+  #----------------
   
   new_table$message_number <- input_table$messages
   
-  #-----------------
-  # Message behavior
-  #-----------------
+  #------------------
+  # Message behavior.
+  #------------------
   
   new_table$message_to_account <- log(new_table$message_number/new_table$account_length)
   
-  #-------------------------
-  # Minutes basic pass down
-  #-------------------------
+  #--------------------------
+  # Minutes basic pass down.
+  #--------------------------
   
   new_table$day_min <- input_table$day_mins
   
@@ -109,9 +102,9 @@ data_munger <- function(input_table){
   
   new_table$intl_min <- input_table$intl_mins
   
-  #---------------------------
-  # Minutes to account length
-  #---------------------------
+  #----------------------------
+  # Minutes to account length.
+  #----------------------------
   
   new_table$day_min_per_a <- input_table$day_mins/input_table$account_length_weeks
   
@@ -121,27 +114,27 @@ data_munger <- function(input_table){
   
   new_table$intl_min_per_a <- input_table$intl_mins/input_table$account_length_weeks
   
-  #------------------------
-  # Customer serivce calls
-  #------------------------
+  #-------------------------
+  # Customer serivce calls.
+  #-------------------------
 
   new_table$customer <- input_table$custserv_calls
   
-  #----------------------------
-  # International call package
-  #----------------------------
+  #-----------------------------
+  # International call package.
+  #-----------------------------
   
   new_table$international_plan <- new_table$intl_mins
   
-  #----------------------
-  # Message plan package
-  #----------------------
+  #-----------------------
+  # Message plan package.
+  #-----------------------
   
   new_table$message_plan <- input_table$message_plan
   
-  #---------------------
-  # Raw calls variables
-  #---------------------
+  #----------------------
+  # Raw calls variables.
+  #----------------------
   
   new_table$day_calls <- input_table$day_calls
   
@@ -151,9 +144,9 @@ data_munger <- function(input_table){
   
   new_table$intl_calls <- input_table$intl_calls
   
-  #----------------------------
-  # Call number to account time
-  #----------------------------
+  #-----------------------------
+  # Call number to account time.
+  #-----------------------------
   
   new_table$day_calls_per_a <- input_table$day_calls/input_table$account_length_weeks
   
