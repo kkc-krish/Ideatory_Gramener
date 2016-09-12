@@ -1,8 +1,5 @@
 library(xgboost)
 
-setwd( "C:/Users/Benedek/Documents/gramener/")
-
-
 train <- read.csv("./clean_dataset/train.csv", stringsAsFactors = FALSE)
 labels <- read.csv("./clean_dataset/target.csv", stringsAsFactors = FALSE)
 
@@ -11,7 +8,6 @@ target <- labels$x
 
 train <- data.matrix(train)
 rm(labels)
-
 
 f_one <- function(preds, dtrain){
 
@@ -60,7 +56,3 @@ for (d in 1:20){
     write.csv(bst, file = paste0("./grid_search_results/results_depth_",d,"_eta_",e/100,".csv"), row.names = FALSE)
   }
 }
-
-
-
-
