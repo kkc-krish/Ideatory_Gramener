@@ -28,7 +28,6 @@ f_one <- function(preds, dtrain){
 
   f_score <- (2*((precision * recall)/(precision + recall)))
 
-
   return(list(metric = "F-one", value = f_score))
 }
 
@@ -53,6 +52,7 @@ for (d in 1:20){
                   objective = "binary:logistic",
                   maximize = TRUE)
 
-    write.csv(bst, file = paste0("./grid_search_results/results_depth_",d,"_eta_",e/100,".csv"), row.names = FALSE)
+    write.csv(bst, file = paste0("./grid_search_results/results_depth_", d, "_eta_", e/100, ".csv"), row.names = FALSE)
+    
   }
 }
