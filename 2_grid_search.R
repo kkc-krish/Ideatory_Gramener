@@ -1,13 +1,27 @@
 library(xgboost)
 
+#-------------------
+#
+#
+#-------------------
+
 train <- read.csv("./clean_dataset/train.csv", stringsAsFactors = FALSE)
 labels <- read.csv("./clean_dataset/target.csv", stringsAsFactors = FALSE)
+
+#-----------------------
+#
+#
+#-----------------------
 
 train <- train[, 2:121]
 target <- labels$x
 
 train <- data.matrix(train)
 rm(labels)
+
+#------------------------
+#
+#------------------------
 
 f_one <- function(preds, dtrain){
 
@@ -31,8 +45,16 @@ f_one <- function(preds, dtrain){
   return(list(metric = "F-one", value = f_score))
 }
 
+#--------------------
+#
+#--------------------
+
 depths <- 1:20
 etas <- 30:1/100
+
+#--------------------
+#
+#--------------------
 
 for (d in 1:20){
   for (e in 1:30){
