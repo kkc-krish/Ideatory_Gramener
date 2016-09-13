@@ -1,17 +1,15 @@
 library(xgboost)
 
-#-------------------
-#
-#
-#-------------------
+#------------------------------------------
+# Reading the training data and the labels.
+#------------------------------------------
 
 train <- read.csv("./clean_dataset/train.csv", stringsAsFactors = FALSE)
 labels <- read.csv("./clean_dataset/target.csv", stringsAsFactors = FALSE)
 
-#-----------------------
-#
-#
-#-----------------------
+#--------------------------------------------------
+# Dropping the ID and selecting the label variable.
+#--------------------------------------------------
 
 train <- train[, 2:121]
 target <- labels$x
@@ -19,16 +17,18 @@ target <- labels$x
 train <- data.matrix(train)
 rm(labels)
 
-#------------------------
-#
-#------------------------
+#--------------------------------------------------------------------
+# This is a custom evaluation metric defined on the fly -- F_1 score.
+#--------------------------------------------------------------------
 
 f_one <- function(preds, dtrain){
 
-  #----------------
-  #
-  #
-  #----------------
+  #--------------------------------------------------------------------
+  # This function calculates the F_1 score for the test and train data.
+  # Input 1.: Predictions.
+  # Input 2.: Training matrix.
+  # Output: The F_1 score.
+  #--------------------------------------------------------------------
 
   preds <- preds
   labels <- as.integer(getinfo(dtrain, "label"))
@@ -45,16 +45,16 @@ f_one <- function(preds, dtrain){
   return(list(metric = "F-one", value = f_score))
 }
 
-#--------------------
-#
-#--------------------
+#------------------------------------------
+# Hyperparamater vectors are defined here.
+#------------------------------------------
 
 depths <- 1:20
 etas <- 30:1/100
 
-#--------------------
-#
-#--------------------
+#-------------------------------------------------------------------------
+# The grid search is performed her with the custom early stopping metric.
+#-------------------------------------------------------------------------
 
 for (d in 1:20){
   for (e in 1:30){
