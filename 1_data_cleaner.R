@@ -208,14 +208,14 @@ data_munger <- function(input_table){
 }
 
 #----------------------
-#
+# Cleaning the data.
 #----------------------
 
 train <- data_munger(train)
 test <- data_munger(test)
 
-#------------------------
-#
+#--------------------------
+# Dumping the csv files.
 #--------------------------
 
 write.csv(target, "./clean_dataset/target.csv", row.names = FALSE)
