@@ -53,7 +53,7 @@ depths <- 1:20
 etas <- 30:1/100
 
 #-------------------------------------------------------------------------
-# The grid search is performed her with the custom early stopping metric.
+# The grid search is performed here with the custom early stopping metric.
 #-------------------------------------------------------------------------
 
 for (d in 1:20){
